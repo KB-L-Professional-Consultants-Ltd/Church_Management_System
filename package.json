@@ -12,11 +12,15 @@
   },
   "lint-staged": {
     "apps/front-end/**/*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
+      "pnpm --filter web exec eslint --fix",
       "prettier --write"
     ],
     "apps/api/**/*.{ts,js}": [
-      "eslint --fix"
+      "pnpm --filter api exec eslint --fix"
+    ],
+    "packages/ui/**/*.{ts,tsx,js,jsx}": [
+      "pnpm --filter @workspace/ui exec eslint --fix",
+      "prettier --write"
     ],
     "**/*.{json,md}": [
       "prettier --write"
