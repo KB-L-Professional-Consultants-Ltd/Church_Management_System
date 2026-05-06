@@ -25,6 +25,48 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Drizzle ORM + NeonDB setup (beginner steps)
+
+This API now includes Drizzle ORM wired to Neon PostgreSQL.
+
+1. Create a Neon project
+
+- Go to Neon dashboard and create a project.
+- Copy the PostgreSQL connection string.
+
+2. Add your environment file
+
+- In this folder, copy `.env.example` to `.env`.
+- Replace `DATABASE_URL` with your Neon connection string.
+- If migrations fail with the pooler URL, put the direct Neon URL in `DATABASE_URL_MIGRATE`.
+
+3. Generate migration SQL from schema
+
+- From the monorepo root run:
+- `pnpm --filter api db:generate`
+
+4. Apply migration to database
+
+- From the monorepo root run:
+- `pnpm --filter api db:migrate`
+
+5. Start the API
+
+- From the monorepo root run:
+- `pnpm --filter api start:dev`
+
+6. Test database connection
+
+- Open `http://localhost:3000/db-health`
+- If everything is good, you should get a JSON response with `status: "ok"`.
+
+Useful commands:
+
+- `pnpm --filter api db:push` (quickly sync schema to database)
+- `pnpm --filter api db:studio` (open Drizzle Studio)
+
+If you are using Neon pooler connection details, keep them for the app if needed, but use the direct Neon connection string for `DATABASE_URL_MIGRATE` so `drizzle-kit migrate` can run cleanly.
+
 ## Project setup
 
 ```bash

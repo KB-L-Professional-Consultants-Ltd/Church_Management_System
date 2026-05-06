@@ -9,4 +9,12 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('db-health')
+  async getDbHealth(): Promise<{
+    status: string;
+    databaseTime: string | null;
+  }> {
+    return this.appService.getDbHealth();
+  }
 }
