@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cva } from "class-variance-authority"
 import { Slot } from "radix-ui"
-// b
+
 import { cn } from "@workspace/ui/lib/utils"
 import type { VariantProps } from "class-variance-authority"
 
@@ -42,7 +42,7 @@ const buttonVariants = cva(
   }
 )
 
-function button({
+function Button({
   className,
   variant = "default",
   size = "default",

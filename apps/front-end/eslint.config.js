@@ -1,15 +1,13 @@
 // @ts-check
 
 import js from "@eslint/js"
-import tseslint from "typescript-eslint"
 import { tanstackConfig } from "@tanstack/eslint-config"
-import importPlugin from "eslint-plugin-import"
-import unusedImports from "eslint-plugin-unused-imports"
-import perfectionist from "eslint-plugin-perfectionist"
-import boundaries from "eslint-plugin-boundaries"
-import react from "eslint-plugin-react"
-import reactHooks from "eslint-plugin-react-hooks"
 import prettier from "eslint-config-prettier"
+import boundaries from "eslint-plugin-boundaries"
+import perfectionist from "eslint-plugin-perfectionist"
+import reactHooks from "eslint-plugin-react-hooks"
+import unusedImports from "eslint-plugin-unused-imports"
+import tseslint from "typescript-eslint"
 
 export default [
   js.configs.recommended,
@@ -22,15 +20,14 @@ export default [
     languageOptions: {
       parserOptions: {
         project: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
 
     plugins: {
-      import: importPlugin,
       "unused-imports": unusedImports,
       perfectionist,
       boundaries,
-      react,
       "react-hooks": reactHooks,
     },
 
