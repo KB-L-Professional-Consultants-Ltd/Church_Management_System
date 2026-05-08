@@ -8,7 +8,10 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async getDbHealth(): Promise<{ status: string; databaseTime: string | null }> {
+  async getDbHealth(): Promise<{
+    status: string;
+    databaseTime: string | null;
+  }> {
     try {
       const db = createDb();
       const result = (await db.execute(sql`select now() as now`)) as Array<{

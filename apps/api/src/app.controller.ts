@@ -11,7 +11,10 @@ export class AppController {
   }
 
   @Get('db-health')
-  async getDbHealth(): Promise<{ status: string; databaseTime: string | null }> {
+  async getDbHealth(): Promise<{
+    status: string;
+    databaseTime: string | null;
+  }> {
     return this.appService.getDbHealth();
   }
 }

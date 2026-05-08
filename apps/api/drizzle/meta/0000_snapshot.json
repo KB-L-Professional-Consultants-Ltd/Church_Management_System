@@ -41,9 +41,7 @@
         "members_email_unique": {
           "name": "members_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
