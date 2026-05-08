@@ -4,7 +4,7 @@ interface AuthPageLayoutProps {
 
 export function AuthPageLayout({ children }: AuthPageLayoutProps) {
   return (
-    <div className="bg-surface text-on-surface flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-surface text-on-surface">
       {children}
     </div>
   )
@@ -16,7 +16,7 @@ interface AuthMainProps {
 
 export function AuthMain({ children }: AuthMainProps) {
   return (
-    <main className="bg-spiritual-accent px-gutter py-2xl relative grow overflow-hidden">
+    <main className="bg-spiritual-accent relative flex grow items-center justify-center overflow-hidden px-6 py-12">
       {children}
     </main>
   )
@@ -28,7 +28,7 @@ interface AuthPageFooterProps {
 
 export function AuthPageFooter({ children }: AuthPageFooterProps) {
   return (
-    <footer className="gap-md border-outline-variant bg-surface-container-low px-margin py-xl flex w-full flex-col items-center justify-between border-t md:flex-row">
+    <footer className="flex w-full flex-col items-center justify-between gap-4 border-t border-outline-variant bg-surface-container-low px-8 py-8 md:flex-row">
       {children}
     </footer>
   )
@@ -42,16 +42,16 @@ interface AuthHeaderProps {
 
 export function AuthHeader({ icon, title, subtitle }: AuthHeaderProps) {
   return (
-    <div className="mb-xl flex flex-col items-center">
+    <div className="mb-8 flex flex-col items-center">
       {icon && (
-        <div className="mb-md bg-on-primary-fixed flex h-16 w-16 items-center justify-center rounded-xl shadow-md">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md">
           {icon}
         </div>
       )}
-      <h1 className="text-headline-lg font-headline-lg text-on-primary-fixed tracking-tight">
+      <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
         {title}
       </h1>
-      <p className="mt-xs text-on-surface-variant font-body-sm">{subtitle}</p>
+      <p className="mt-1 font-body-sm text-on-surface-variant">{subtitle}</p>
     </div>
   )
 }
@@ -65,7 +65,7 @@ interface AuthFooterProps {
 export function AuthFooter({ text, linkText, linkHref }: AuthFooterProps) {
   return (
     <div className="text-center">
-      <p className="text-body-sm font-body-sm text-on-surface-variant">
+      <p className="font-body-sm text-body-sm text-on-surface-variant">
         {text}{" "}
         <a
           href={linkHref}
@@ -80,12 +80,12 @@ export function AuthFooter({ text, linkText, linkHref }: AuthFooterProps) {
 
 export function AuthDivider() {
   return (
-    <div className="my-xl flex items-center">
-      <div className="border-outline-variant grow border-t" />
-      <span className="px-md text-label-sm font-label-sm text-outline tracking-widest uppercase">
+    <div className="my-8 flex items-center gap-4">
+      <div className="h-px grow border-t border-outline-variant" />
+      <span className="font-label-sm text-label-sm tracking-widest text-outline uppercase">
         or
       </span>
-      <div className="border-outline-variant grow border-t" />
+      <div className="h-px grow border-t border-outline-variant" />
     </div>
   )
 }
@@ -96,10 +96,12 @@ interface ErrorAlertProps {
 
 export function ErrorAlert({ message }: ErrorAlertProps) {
   return (
-    <div className="mb-lg border-error bg-error-container p-md rounded-lg border">
-      <p className="text-body-sm font-body-sm text-on-error-container">
-        {message}
-      </p>
+    <div className="mb-6">
+      <div className="rounded-lg border border-error bg-error-container p-3">
+        <p className="font-body-sm text-body-sm text-on-error-container">
+          {message}
+        </p>
+      </div>
     </div>
   )
 }
@@ -110,8 +112,8 @@ interface LoadingSpinnerProps {
 
 export function LoadingSpinner({ text = "Loading..." }: LoadingSpinnerProps) {
   return (
-    <div className="gap-sm flex items-center justify-center">
-      <div className="border-surface-bright h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
+    <div className="flex items-center justify-center gap-2">
+      <div className="h-5 w-5 animate-spin rounded-full border-2 border-surface-bright border-t-transparent" />
       <span>{text}</span>
     </div>
   )
@@ -119,9 +121,9 @@ export function LoadingSpinner({ text = "Loading..." }: LoadingSpinnerProps) {
 
 export function PageFooter() {
   return (
-    <div className="gap-md flex flex-col items-center md:flex-row">
+    <div className="flex flex-col items-center gap-4 md:flex-row">
       <span className="font-label-md font-bold text-primary">SanctuaryOS</span>
-      <p className="text-body-sm font-body-sm text-on-surface-variant">
+      <p className="font-body-sm text-body-sm text-on-surface-variant">
         © 2024 SanctuaryOS. All rights reserved. Sacred Professionalism for
         Modern Communities.
       </p>
@@ -131,28 +133,28 @@ export function PageFooter() {
 
 export function FooterLinks() {
   return (
-    <div className="gap-md flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center gap-4">
       <a
         href="#"
-        className="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary-fixed-dim underline transition-all"
+        className="font-label-sm text-label-sm text-on-surface-variant underline transition-all hover:text-secondary-fixed-dim"
       >
         Privacy Policy
       </a>
       <a
         href="#"
-        className="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary-fixed-dim underline transition-all"
+        className="font-label-sm text-label-sm text-on-surface-variant underline transition-all hover:text-secondary-fixed-dim"
       >
         Terms of Service
       </a>
       <a
         href="#"
-        className="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary-fixed-dim underline transition-all"
+        className="font-label-sm text-label-sm text-on-surface-variant underline transition-all hover:text-secondary-fixed-dim"
       >
         Support Center
       </a>
       <a
         href="#"
-        className="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary-fixed-dim underline transition-all"
+        className="font-label-sm text-label-sm text-on-surface-variant underline transition-all hover:text-secondary-fixed-dim"
       >
         System Status
       </a>
@@ -176,31 +178,15 @@ export function SpiritualAccentBg() {
 
 export function AuthSupportingIllustration() {
   return (
-    <div className="mt-xl flex flex-col items-center opacity-60">
-      <div className="mb-md gap-md flex">
-        <svg
-          className="text-outline h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-        </svg>
-        <svg
-          className="text-outline h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-        </svg>
-        <svg
-          className="text-outline h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-        </svg>
+    <div className="mt-8 flex flex-col items-center opacity-60">
+      <div className="mb-4 flex gap-4">
+        <span className="material-symbols-outlined text-outline">
+          verified_user
+        </span>
+        <span className="material-symbols-outlined text-outline">database</span>
+        <span className="material-symbols-outlined text-outline">groups</span>
       </div>
-      <p className="text-label-sm font-label-sm text-outline-variant max-w-xs text-center">
+      <p className="max-w-[20rem] text-center font-label-sm text-label-sm text-outline-variant">
         Enterprise-grade security meets spiritual stewardship in a unified
         platform.
       </p>

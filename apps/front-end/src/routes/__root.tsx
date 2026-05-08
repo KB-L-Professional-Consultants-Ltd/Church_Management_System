@@ -1,5 +1,4 @@
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
-
 import appCss from "@workspace/ui/globals.css?url"
 
 export const Route = createRootRoute({
@@ -20,6 +19,10 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
       },
     ],
   }),

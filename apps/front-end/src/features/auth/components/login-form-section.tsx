@@ -1,7 +1,6 @@
 import {
   AuthDivider,
   AuthFooter,
-  AuthHeader,
   ErrorAlert,
   LoadingSpinner,
 } from "./auth-chrome"
@@ -16,16 +15,6 @@ interface LoginFormSectionProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-const churchIcon = (
-  <svg
-    className="text-surface-bright h-8 w-8"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-  </svg>
-)
-
 export function LoginFormSection({
   email,
   password,
@@ -36,74 +25,92 @@ export function LoginFormSection({
   onSubmit,
 }: LoginFormSectionProps) {
   return (
-    <div className="w-full max-w-lg">
-      <div className="border-secondary-container bg-surface-container-lowest p-xl md:p-2xl overflow-hidden rounded-xl border-t-4 shadow-lg">
-        <AuthHeader
-          icon={churchIcon}
-          title="SanctuaryOS"
-          subtitle="Sacred Professionalism for Modern Communities"
-        />
+    <div className="w-full">
+      <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg">
+        <div className="mb-8 flex flex-col items-center">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md">
+            <span className="material-symbols-outlined text-[32px] text-surface-bright">
+              church
+            </span>
+          </div>
+          <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
+            SanctuaryOS
+          </h1>
+          <p className="mt-1 font-body-sm text-on-surface-variant">
+            Sacred Professionalism for Modern Communities
+          </p>
+        </div>
 
         {error && <ErrorAlert message={error} />}
 
-        <form onSubmit={onSubmit} className="space-y-lg">
-          <label className="space-y-xs block">
-            <span className="ml-xs text-label-md font-label-md text-on-surface-variant">
+        <form onSubmit={onSubmit} className="space-y-6">
+          <div className="space-y-1">
+            <label
+              htmlFor="email"
+              className="ml-1 block font-label-md text-label-md text-on-surface-variant"
+            >
               EMAIL ADDRESS
-            </span>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => onEmailChange(event.target.value)}
-              placeholder="administrator@church.org"
-              className="border-outline-variant bg-surface-bright px-md py-md font-body-md text-on-surface focus:border-on-primary-fixed focus:ring-secondary-container/20 w-full rounded-lg border transition-all focus:ring-2 focus:outline-none"
-            />
-          </label>
-
-          <label className="space-y-xs block">
-            <div className="px-xs flex items-center justify-between">
-              <span className="text-label-md font-label-md text-on-surface-variant">
-                PASSWORD
+            </label>
+            <div className="group relative">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed">
+                mail
               </span>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(event) => onEmailChange(event.target.value)}
+                placeholder="administrator@church.org"
+                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-4 pr-4 pl-12 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
+              />
+            </div>
+          </div>
 
+          <div className="space-y-1">
+            <div className="flex items-center justify-between px-1">
+              <label
+                htmlFor="password"
+                className="font-label-md text-label-md text-on-surface-variant"
+              >
+                PASSWORD
+              </label>
               <a
                 href="/auth/forgot-password"
-                className="text-label-sm font-label-sm hover:text-secondary-container text-secondary transition-colors"
+                className="font-label-sm text-label-sm text-secondary transition-colors hover:text-secondary-container"
               >
                 Forgot Password?
               </a>
             </div>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => onPasswordChange(event.target.value)}
-              placeholder="••••••••"
-              className="border-outline-variant bg-surface-bright px-md py-md font-body-md text-on-surface focus:border-on-primary-fixed focus:ring-secondary-container/20 w-full rounded-lg border transition-all focus:ring-2 focus:outline-none"
-            />
-          </label>
+            <div className="group relative">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed">
+                lock
+              </span>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(event) => onPasswordChange(event.target.value)}
+                placeholder="••••••••"
+                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-4 pr-4 pl-12 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
+              />
+            </div>
+          </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="mt-md gap-sm bg-on-primary-fixed px-md py-md font-title-lg text-title-lg text-surface-bright hover:bg-primary-container flex w-full items-center justify-center rounded-lg shadow-md transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-80"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed py-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
           >
             {isLoading ? (
               <LoadingSpinner text="Signing In..." />
             ) : (
               <>
                 Sign In
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M10 17l5-5-5-5" />
-                  <path d="M15 12H3" />
-                </svg>
+                <span className="material-symbols-outlined text-[20px]">
+                  login
+                </span>
               </>
             )}
           </button>

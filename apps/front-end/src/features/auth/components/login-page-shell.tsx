@@ -18,9 +18,8 @@ export function LoginPageShell({ children }: LoginPageShellProps) {
       <AuthMain>
         <SpiritualAccentBg />
 
-        <div className="gap-2xl px-md lg:gap-3xl relative z-10 flex w-full max-w-6xl flex-col items-center lg:flex-row lg:items-center lg:justify-center">
+        <div className="relative z-10 w-full max-w-[28rem]">
           {children}
-
           <AuthSupportingIllustration />
         </div>
       </AuthMain>
