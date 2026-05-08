@@ -121,7 +121,7 @@ export function LoginFormSection({
         <AuthFooter
           text="New to SanctuaryOS?"
           linkText="Create an account"
-          linkHref="/auth/register"
+          linkHref="/register"
         />
       </div>
     </div>
