@@ -30,6 +30,3 @@ CREATE TABLE "users" (
 --> statement-breakpoint
 ALTER TABLE "password_reset_tokens" ADD CONSTRAINT "password_reset_tokens_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "refresh_tokens" ADD CONSTRAINT "refresh_tokens_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
-INSERT INTO "users" ("email", "password_hash", "role")
-VALUES ('admin@example.com', '$2b$12$yLxcatcSCkS/SP3J3JwbauBHpwURzDKemF7nqJ5SovCcINxSY3osm', 'ADMIN')
-ON CONFLICT ("email") DO NOTHING;--> statement-breakpoint
