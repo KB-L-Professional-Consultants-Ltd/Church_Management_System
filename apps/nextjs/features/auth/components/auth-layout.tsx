@@ -1,7 +1,8 @@
 import Link from "next/link"
+import type { ReactNode } from "react"
 
 interface AuthPageLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AuthPageLayout({ children }: AuthPageLayoutProps) {
@@ -13,7 +14,7 @@ export function AuthPageLayout({ children }: AuthPageLayoutProps) {
 }
 
 interface AuthMainProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AuthMain({ children }: AuthMainProps) {
@@ -25,7 +26,7 @@ export function AuthMain({ children }: AuthMainProps) {
 }
 
 interface AuthPageFooterProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AuthPageFooter({ children }: AuthPageFooterProps) {
@@ -37,7 +38,7 @@ export function AuthPageFooter({ children }: AuthPageFooterProps) {
 }
 
 interface AuthHeaderProps {
-  icon?: React.ReactNode
+  icon?: ReactNode
   title: string
   subtitle: string
 }
@@ -68,7 +69,7 @@ export function AuthFooter({ text, linkText, linkHref }: AuthFooterProps) {
   return (
     <div className="text-center">
       <p className="font-body-sm text-body-sm text-on-surface-variant">
-        {text}{" "}
+        {text} {" "}
         <Link
           href={linkHref}
           className="font-bold text-secondary transition-all hover:underline"
