@@ -43,14 +43,16 @@ export class RolesGuard implements CanActivate {
 
     const userRank = HIERARCHY[user.role];
     if (userRank === undefined) {
-      throw new InternalServerErrorException(`Unknown user role: ${user.role}`);
+      throw new ForbiddenException(
+        'Invalid user role configuration. Please contact an administrator.',
+      );
     }
 
     const allowed = requiredRoles.some((requiredRole) => {
       const requiredRank = HIERARCHY[requiredRole];
       if (requiredRank === undefined) {
         throw new InternalServerErrorException(
-          `Unknown required role: ${requiredRole}`,
+          `Role '${requiredRole}' is not defined in HIERARCHY. Check @Roles() decorator usage.`,
         );
       }
       return userRank >= requiredRank;
