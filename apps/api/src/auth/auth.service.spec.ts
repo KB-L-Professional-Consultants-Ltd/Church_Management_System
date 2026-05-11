@@ -10,11 +10,9 @@ import * as bcrypt from 'bcrypt';
 
 const executeMock = jest.fn();
 
-jest.mock('../db/client', () => ({
-  createDb: () => ({
-    execute: executeMock,
-  }),
-}));
+const mockDb = {
+  execute: executeMock,
+};
 
 jest.mock('bcrypt', () => ({
   hashSync: jest.fn(
@@ -58,7 +56,8 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    service = new AuthService(configService, jwtService);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    service = new AuthService(mockDb as any, configService, jwtService);
   });
 
   it('throws a conflict when registering an existing email', async () => {

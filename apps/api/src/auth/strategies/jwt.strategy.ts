@@ -1,12 +1,12 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { createDb } from '../../db/client';
+import { DB_CONNECTION } from '../../db/db.module';
 import { sql } from 'drizzle-orm';
 
 interface JwtPayload {
-  sub: string;
+  sub: string | number;
   role: string;
 }
 
@@ -19,7 +19,11 @@ interface JwtUserRow {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor(private config: ConfigService) {
+  constructor(
+    @Inject(DB_CONNECTION)
+    private db: ReturnType<typeof import('../../db/client').createDb>,
+    private config: ConfigService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -28,9 +32,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload) {
-    const db = createDb();
-    const rows = (await db.execute(
-      sql`select id, email, role, is_active as "isActive", created_at as "createdAt", updated_at as "updatedAt" from users where id = ${payload.sub} limit 1`,
+    // Normalize payload.sub to string for SQL query
+    const userId = String(payload.sub);
+
+    const rows = (await this.db.execute(
+      sql`select id, email, role, is_active as "isActive", created_at as "createdAt", updated_at as "updatedAt" from users where id = ${userId} limit 1`,
     )) as unknown as JwtUserRow[];
     const user = rows[0];
     if (!user) throw new UnauthorizedException();

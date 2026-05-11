@@ -3,10 +3,11 @@ import {
   ConflictException,
   UnauthorizedException,
   BadRequestException,
+  Inject,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { createDb } from '../db/client';
+import { DB_CONNECTION } from '../db/db.module';
 import { sql, type SQL } from 'drizzle-orm';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
@@ -59,6 +60,8 @@ export class AuthService {
   private readonly DUMMY_BCRYPT_HASH: string;
 
   constructor(
+    @Inject(DB_CONNECTION)
+    private db: ReturnType<typeof import('../db/client').createDb>,
     private config: ConfigService,
     private jwtService: JwtService,
   ) {
@@ -92,8 +95,7 @@ export class AuthService {
   }
 
   private async queryRows<T>(query: SQL): Promise<T[]> {
-    const db = createDb();
-    return (await db.execute(query)) as unknown as T[];
+    return (await this.db.execute(query)) as unknown as T[];
   }
 
   private getRefreshExpiry() {
@@ -275,26 +277,43 @@ export class AuthService {
     );
 
     // send email via Resend API
-    try {
-      const resendKey = this.config.get<string>('RESEND_API_KEY');
-      const appUrl = this.config.get<string>('APP_URL') || '';
-      const resetUrl = `${appUrl.replace(/\/$/, '')}/reset-password?token=${rawToken}`;
+    const resendKey = this.config.get<string>('RESEND_API_KEY');
+    const appUrl = this.config.get<string>('APP_URL');
 
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'no-reply@church.example',
-          to: user.email,
-          subject: 'Password reset',
-          html: `<p>Use the link below to reset your password. This link expires in 1 hour.</p><p><a href="${resetUrl}">${resetUrl}</a></p>`,
-        }),
-      });
-    } catch {
-      // don't leak errors to client
+    // Only attempt to send email if required config is present
+    if (resendKey && appUrl) {
+      try {
+        const resetUrl = `${appUrl.replace(/\/$/, '')}/reset-password?token=${rawToken}`;
+
+        const response = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${resendKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'no-reply@church.example',
+            to: user.email,
+            subject: 'Password reset',
+            html: `<p>Use the link below to reset your password. This link expires in 1 hour.</p><p><a href="${resetUrl}">${resetUrl}</a></p>`,
+          }),
+        });
+
+        if (!response.ok) {
+          // Log the error for monitoring/debugging but don't expose to client
+          console.error(
+            `Failed to send password reset email: ${response.status} ${response.statusText}`,
+          );
+        }
+      } catch (error) {
+        // Log the error for monitoring/debugging but don't expose to client
+        console.error('Error sending password reset email:', error);
+      }
+    } else {
+      // Log missing configuration for debugging
+      console.warn(
+        'Password reset email not sent: RESEND_API_KEY or APP_URL not configured',
+      );
     }
 
     return response;
