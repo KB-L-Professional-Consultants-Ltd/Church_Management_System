@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
   BadRequestException,
   Inject,
+  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -58,6 +59,7 @@ interface PasswordResetTokenRow {
 @Injectable()
 export class AuthService {
   private readonly DUMMY_BCRYPT_HASH: string;
+  private readonly logger = new Logger(AuthService.name);
 
   constructor(
     @Inject(DB_CONNECTION)
@@ -301,17 +303,17 @@ export class AuthService {
 
         if (!response.ok) {
           // Log the error for monitoring/debugging but don't expose to client
-          console.error(
+          this.logger.error(
             `Failed to send password reset email: ${response.status} ${response.statusText}`,
           );
         }
       } catch (error) {
         // Log the error for monitoring/debugging but don't expose to client
-        console.error('Error sending password reset email:', error);
+        this.logger.error('Error sending password reset email:', error);
       }
     } else {
       // Log missing configuration for debugging
-      console.warn(
+      this.logger.warn(
         'Password reset email not sent: RESEND_API_KEY or APP_URL not configured',
       );
     }
