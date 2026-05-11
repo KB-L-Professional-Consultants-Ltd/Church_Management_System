@@ -3,11 +3,10 @@ import {
   CanActivate,
   ExecutionContext,
   ForbiddenException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLES_KEY } from '../decorators/roles.decorator';
-
-type Role = 'ADMIN' | 'PASTOR' | 'DEPARTMENT_LEADER' | 'FINANCE' | 'VIEWER';
+import { ROLES_KEY, Role } from '../decorators/roles.decorator';
 
 type RequestWithUser = {
   user?: {
@@ -42,9 +41,18 @@ export class RolesGuard implements CanActivate {
       );
     }
 
-    const userRank = HIERARCHY[user.role] ?? 0;
+    const userRank = HIERARCHY[user.role];
+    if (userRank === undefined) {
+      throw new InternalServerErrorException(`Unknown user role: ${user.role}`);
+    }
+
     const allowed = requiredRoles.some((requiredRole) => {
-      const requiredRank = HIERARCHY[requiredRole] ?? 0;
+      const requiredRank = HIERARCHY[requiredRole];
+      if (requiredRank === undefined) {
+        throw new InternalServerErrorException(
+          `Unknown required role: ${requiredRole}`,
+        );
+      }
       return userRank >= requiredRank;
     });
 
