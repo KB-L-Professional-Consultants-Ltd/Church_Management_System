@@ -7,7 +7,7 @@ This document describes the authentication API (server) and how frontend and oth
 Summary
 
 - Base API prefix: `/api` with versioning in the URI (v1): e.g. `/api/v1/auth/login` when the server runs with the default prefix.
-- Swagger UI: `http://localhost:3000/docs` (see [apps/api/src/main.ts](apps/api/src/main.ts)).
+- Swagger UI: `http://localhost:3000/docs` (see [apps/api/src/main.ts](../apps/api/src/main.ts)).
 
 Environment / setup
 
