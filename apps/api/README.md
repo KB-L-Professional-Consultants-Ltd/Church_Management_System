@@ -57,7 +57,7 @@ This API now includes Drizzle ORM wired to Neon PostgreSQL.
 
 6. Test database connection
 
-- Open `http://localhost:3000/db-health`
+- Open `http://localhost:3000/api/v1/db-health`
 - If everything is good, you should get a JSON response with `status: "ok"`.
 
 7. Open Swagger UI
