@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 interface AuthPageLayoutProps {
   children: React.ReactNode
 }
@@ -67,12 +69,12 @@ export function AuthFooter({ text, linkText, linkHref }: AuthFooterProps) {
     <div className="text-center">
       <p className="font-body-sm text-body-sm text-on-surface-variant">
         {text}{" "}
-        <a
+        <Link
           href={linkHref}
           className="font-bold text-secondary transition-all hover:underline"
         >
           {linkText}
-        </a>
+        </Link>
       </p>
     </div>
   )
