@@ -1,7 +1,13 @@
 "use client"
 
-import Link from "next/link"
 import type { FormEvent } from "react"
+import Link from "next/link"
+import {
+  IconBuilding,
+  IconMail,
+  IconLock,
+  IconLogin,
+} from "@tabler/icons-react"
 
 import {
   AuthDivider,
@@ -34,9 +40,7 @@ export function LoginFormSection({
       <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg">
         <div className="mb-8 flex flex-col items-center">
           <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md">
-            <span className="material-symbols-outlined text-[32px] text-surface-bright">
-              church
-            </span>
+            <IconBuilding size={32} className="text-surface-bright" />
           </div>
           <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
             SanctuaryOS
@@ -57,9 +61,10 @@ export function LoginFormSection({
               EMAIL ADDRESS
             </label>
             <div className="group relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed">
-                mail
-              </span>
+              <IconMail
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
+                size={20}
+              />
               <input
                 id="email"
                 name="email"
@@ -88,9 +93,10 @@ export function LoginFormSection({
               </Link>
             </div>
             <div className="group relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed">
-                lock
-              </span>
+              <IconLock
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
+                size={20}
+              />
               <input
                 id="password"
                 name="password"
@@ -113,9 +119,7 @@ export function LoginFormSection({
             ) : (
               <>
                 Sign In
-                <span className="material-symbols-outlined text-[20px]">
-                  login
-                </span>
+                <IconLogin size={20} />
               </>
             )}
           </button>

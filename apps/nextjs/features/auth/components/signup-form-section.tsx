@@ -1,6 +1,15 @@
 "use client"
 
 import type { FormEvent } from "react"
+import {
+  IconUser,
+  IconBuilding,
+  IconMail,
+  IconLock,
+  IconArrowRight,
+  IconShieldCheckFilled,
+  IconCloudCheck,
+} from "@tabler/icons-react"
 
 import { AuthFooter, ErrorAlert, LoadingSpinner } from "./auth-layout"
 
@@ -54,9 +63,10 @@ export function SignupFormSection({
               Full Name
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
-                person
-              </span>
+              <IconUser
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
+                size={20}
+              />
               <input
                 id="full_name"
                 name="full_name"
@@ -77,9 +87,10 @@ export function SignupFormSection({
               Church Name
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
-                church
-              </span>
+              <IconBuilding
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
+                size={20}
+              />
               <input
                 id="church_name"
                 name="church_name"
@@ -100,9 +111,10 @@ export function SignupFormSection({
               Email Address
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
-                mail
-              </span>
+              <IconMail
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
+                size={20}
+              />
               <input
                 id="email"
                 name="email"
@@ -123,9 +135,10 @@ export function SignupFormSection({
               Password
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
-                lock
-              </span>
+              <IconLock
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
+                size={20}
+              />
               <input
                 id="password"
                 name="password"
@@ -149,9 +162,7 @@ export function SignupFormSection({
               ) : (
                 <>
                   Create Account
-                  <span className="material-symbols-outlined text-[20px]">
-                    arrow_forward
-                  </span>
+                  <IconArrowRight size={20} />
                 </>
               )}
             </button>
@@ -175,23 +186,19 @@ export function SignupFormSection({
 
       <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="flex items-start gap-2 px-1 py-1">
-          <span
-            className="material-symbols-outlined text-secondary-container"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            verified_user
-          </span>
+          <IconShieldCheckFilled
+            size={20}
+            className="mt-0.5 flex-shrink-0 text-secondary-container"
+          />
           <p className="font-label-sm text-label-sm text-on-surface-variant">
             Secure administrative access encryption.
           </p>
         </div>
         <div className="flex items-start gap-2 px-1 py-1">
-          <span
-            className="material-symbols-outlined text-secondary-container"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            cloud_done
-          </span>
+          <IconCloudCheck
+            size={20}
+            className="mt-0.5 flex-shrink-0 text-secondary-container"
+          />
           <p className="font-label-sm text-label-sm text-on-surface-variant">
             Real-time database synchronization.
           </p>

@@ -1,3 +1,8 @@
+import {
+  IconDatabase,
+  IconShieldCheck,
+  IconUsersGroup,
+} from "@tabler/icons-react"
 import Link from "next/link"
 import type { ReactNode } from "react"
 
@@ -69,7 +74,7 @@ export function AuthFooter({ text, linkText, linkHref }: AuthFooterProps) {
   return (
     <div className="text-center">
       <p className="font-body-sm text-body-sm text-on-surface-variant">
-        {text} {" "}
+        {text}{" "}
         <Link
           href={linkHref}
           className="font-bold text-secondary transition-all hover:underline"
@@ -183,11 +188,24 @@ export function AuthSupportingIllustration() {
   return (
     <div className="mt-8 flex flex-col items-center opacity-60">
       <div className="mb-4 flex gap-4">
-        <span className="material-symbols-outlined text-outline">
-          verified_user
-        </span>
-        <span className="material-symbols-outlined text-outline">database</span>
-        <span className="material-symbols-outlined text-outline">groups</span>
+        <IconShieldCheck
+          aria-hidden="true"
+          className="text-outline"
+          size={20}
+          stroke={1.8}
+        />
+        <IconDatabase
+          aria-hidden="true"
+          className="text-outline"
+          size={20}
+          stroke={1.8}
+        />
+        <IconUsersGroup
+          aria-hidden="true"
+          className="text-outline"
+          size={20}
+          stroke={1.8}
+        />
       </div>
       <p className="max-w-[20rem] text-center font-label-sm text-label-sm text-outline-variant">
         Enterprise-grade security meets spiritual stewardship in a unified
