@@ -15,10 +15,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
-    "ignoreDeprecations": "6.0",
     "skipLibCheck": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["node", "jest"],
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false

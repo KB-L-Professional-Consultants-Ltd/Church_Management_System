@@ -49,22 +49,6 @@ export default [
       "@typescript-eslint/no-unused-vars": "off",
       "unused-imports/no-unused-imports": "error",
 
-      /* -------------------- Imports -------------------- */
-      "import/order": [
-        "error",
-        {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-          ],
-          "newlines-between": "always",
-        },
-      ],
-
       /* -------------------- Sorting -------------------- */
       "perfectionist/sort-imports": [
         "error",

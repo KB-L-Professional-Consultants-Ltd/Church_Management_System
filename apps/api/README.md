@@ -57,10 +57,19 @@ This API now includes Drizzle ORM wired to Neon PostgreSQL.
 
 6. Test database connection
 
-- Open `http://localhost:3000/db-health`
+- Open `http://localhost:3000/api/v1/db-health`
 - If everything is good, you should get a JSON response with `status: "ok"`.
 
+7. Open Swagger UI
+
+- After the API starts, open `http://localhost:3000/docs`
+- The Swagger UI is configured in `apps/api/src/main.ts` and documents the auth routes under the `Auth` tag.
+
 Useful commands:
+
+Additional docs
+
+- Authentication reference and frontend integration notes: [docs/authentication.md](../docs/authentication.md)
 
 - `pnpm --filter api db:push` (quickly sync schema to database)
 - `pnpm --filter api db:studio` (open Drizzle Studio)
