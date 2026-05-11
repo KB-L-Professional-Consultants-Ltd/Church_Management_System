@@ -104,10 +104,10 @@ export class AuthController {
     status: 200,
     description: 'Password updated successfully. Please log in.',
   })
-  @ApiResponse({ status: 400, description: 'Validation failed' })
   @ApiResponse({
     status: 400,
-    description: 'This reset link is invalid or has expired.',
+    description:
+      'Validation failed, or the reset link is invalid or has expired.',
   })
   async resetPassword(@Body() dto: ResetPasswordDto) {
     return this.authService.resetPassword(dto.token, dto.newPassword);
