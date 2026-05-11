@@ -1,11 +1,8 @@
 "use client"
 
-import {
-  AuthFooter,
-  ErrorAlert,
-  LoadingSpinner,
-} from "./auth-layout"
 import type { FormEvent } from "react"
+
+import { AuthFooter, ErrorAlert, LoadingSpinner } from "./auth-layout"
 
 interface SignupFormSectionProps {
   fullName: string
@@ -57,7 +54,7 @@ export function SignupFormSection({
               Full Name
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline text-[20px]">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
                 person
               </span>
               <input
@@ -80,7 +77,7 @@ export function SignupFormSection({
               Church Name
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline text-[20px]">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
                 church
               </span>
               <input
@@ -103,7 +100,7 @@ export function SignupFormSection({
               Email Address
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline text-[20px]">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
                 mail
               </span>
               <input
@@ -126,7 +123,7 @@ export function SignupFormSection({
               Password
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-outline text-[20px]">
+              <span className="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-[20px] text-outline">
                 lock
               </span>
               <input
@@ -172,7 +169,7 @@ export function SignupFormSection({
         <AuthFooter
           text="Already part of the community?"
           linkText="Log in"
-          linkHref="/auth"
+          linkHref="/auth/login"
         />
       </div>
 

@@ -1,6 +1,10 @@
 import Link from "next/link"
 
-import { AuthMain, AuthPageLayout, SpiritualAccentBg } from "../components/auth-layout"
+import {
+  AuthMain,
+  AuthPageLayout,
+  SpiritualAccentBg,
+} from "../components/auth-layout"
 
 export function ForgotPasswordPage() {
   return (
@@ -22,7 +26,7 @@ export function ForgotPasswordPage() {
 
           <div className="mt-8">
             <Link
-              href="/auth"
+              href="/auth/login"
               className="inline-flex h-12 items-center justify-center rounded-lg bg-on-primary-fixed px-6 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container"
             >
               Back to login
