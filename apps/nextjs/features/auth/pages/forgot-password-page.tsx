@@ -14,7 +14,7 @@ export function ForgotPasswordPage() {
 
         <div className="relative z-10 w-full max-w-xl rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-lg">
           <p className="mb-3 font-label-sm text-label-sm tracking-[0.32em] text-secondary uppercase">
-            SanctuaryOS
+            Good News Church CMS
           </p>
           <h1 className="font-headline-lg text-headline-lg font-bold text-on-primary-fixed">
             Password recovery is not wired yet.

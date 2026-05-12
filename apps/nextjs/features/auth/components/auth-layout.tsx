@@ -130,10 +130,12 @@ export function LoadingSpinner({ text = "Loading..." }: LoadingSpinnerProps) {
 export function PageFooter() {
   return (
     <div className="flex flex-col items-center gap-4 md:flex-row">
-      <span className="font-label-md font-bold text-primary">SanctuaryOS</span>
+      <span className="font-label-md font-bold text-primary">
+        Good News Church CMS
+      </span>
       <p className="font-body-sm text-body-sm text-on-surface-variant">
-        © 2024 SanctuaryOS. All rights reserved. Sacred Professionalism for
-        Modern Communities.
+        © 2024 Good News Church CMS. All rights reserved. Sacred Professionalism
+        for Modern Communities.
       </p>
     </div>
   )

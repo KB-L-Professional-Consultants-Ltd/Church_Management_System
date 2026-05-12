@@ -62,7 +62,7 @@ export function SignupFormSection() {
             />
           </div>
           <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
-            SanctuaryOS
+            Good News Church CMS
           </h1>
           <p className="mt-1 font-body-sm text-on-surface-variant">
             Sacred Professionalism for Modern Communities
@@ -78,7 +78,7 @@ export function SignupFormSection() {
           >
             <FieldLabel
               htmlFor="fullName"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
+              className="ml-1 block font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
             >
               full name
             </FieldLabel>
@@ -106,7 +106,7 @@ export function SignupFormSection() {
           >
             <FieldLabel
               htmlFor="churchName"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
+              className="ml-1 block font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
             >
               church name
             </FieldLabel>
@@ -134,7 +134,7 @@ export function SignupFormSection() {
           >
             <FieldLabel
               htmlFor="email"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
+              className="ml-1 block font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
             >
               email address
             </FieldLabel>
@@ -164,7 +164,7 @@ export function SignupFormSection() {
             <div className="flex items-center justify-between px-1">
               <FieldLabel
                 htmlFor="password"
-                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
+                className="font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
               >
                 password
               </FieldLabel>
