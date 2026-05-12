@@ -20,7 +20,7 @@ export function LoginPageWrapper({ children }: LoginPageWrapperProps) {
       <AuthMain>
         <SpiritualAccentBg />
 
-        <div className="relative z-10 w-full max-w-md">
+        <div className="relative z-10 w-full max-w-[360px]">
           {children}
           <AuthSupportingIllustration />
         </div>

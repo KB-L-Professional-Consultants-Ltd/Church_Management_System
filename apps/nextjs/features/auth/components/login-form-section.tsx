@@ -1,15 +1,20 @@
 "use client"
 
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  IconArrowRight,
+  IconBuilding,
+  IconLock,
+  IconMail,
+} from "@tabler/icons-react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
-import Link from "next/link"
-import { Input } from "@workspace/ui/components/input"
 import { Button } from "@workspace/ui/components/button"
 import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field"
-import { IconBuilding } from "@tabler/icons-react"
+import { Input } from "@workspace/ui/components/input"
 
 import { AuthDivider, ErrorAlert, LoadingSpinner } from "./auth-layout"
 
@@ -41,10 +46,14 @@ export function LoginFormSection() {
 
   return (
     <div className="w-full">
-      <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg">
-        <div className="mb-8 flex flex-col items-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md">
-            <IconBuilding size={32} className="text-surface-bright" />
+      <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg shadow-on-primary-fixed/10">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md shadow-on-primary-fixed/15">
+            <IconBuilding
+              size={36}
+              stroke={1.8}
+              className="text-surface-bright"
+            />
           </div>
           <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
             SanctuaryOS
@@ -57,32 +66,43 @@ export function LoginFormSection() {
         {serverError && <ErrorAlert message={serverError} />}
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <Field className="gap-1" data-invalid={!!form.formState.errors.email}>
+          <Field
+            className="gap-1.5"
+            data-invalid={!!form.formState.errors.email}
+          >
             <FieldLabel
               htmlFor="email"
-              className="ml-1 block font-label-md text-label-md text-on-surface-variant"
+              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
             >
               EMAIL ADDRESS
             </FieldLabel>
-            <Input
-              id="email"
-              {...form.register("email")}
-              type="email"
-              placeholder="administrator@church.org"
-              className="w-full py-4 pr-4 pl-4 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
-              aria-invalid={!!form.formState.errors.email}
-            />
+            <div className="group relative">
+              <IconMail
+                aria-hidden="true"
+                size={18}
+                stroke={1.8}
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
+              />
+              <Input
+                id="email"
+                {...form.register("email")}
+                type="email"
+                placeholder="administrator@church.org"
+                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                aria-invalid={!!form.formState.errors.email}
+              />
+            </div>
             <FieldError errors={[form.formState.errors.email]} />
           </Field>
 
           <Field
-            className="gap-1"
+            className="gap-1.5"
             data-invalid={!!form.formState.errors.password}
           >
             <div className="flex items-center justify-between px-1">
               <FieldLabel
                 htmlFor="password"
-                className="font-label-md text-label-md text-on-surface-variant"
+                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
               >
                 PASSWORD
               </FieldLabel>
@@ -93,26 +113,37 @@ export function LoginFormSection() {
                 Forgot Password?
               </Link>
             </div>
-            <Input
-              id="password"
-              {...form.register("password")}
-              type="password"
-              placeholder="••••••••"
-              className="w-full py-4 pr-4 pl-4 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
-              aria-invalid={!!form.formState.errors.password}
-            />
+            <div className="group relative">
+              <IconLock
+                aria-hidden="true"
+                size={18}
+                stroke={1.8}
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
+              />
+              <Input
+                id="password"
+                {...form.register("password")}
+                type="password"
+                placeholder="••••••••"
+                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                aria-invalid={!!form.formState.errors.password}
+              />
+            </div>
             <FieldError errors={[form.formState.errors.password]} />
           </Field>
 
           <div className="pt-1">
             <Button
               type="submit"
-              className="text-on-primary flex w-full items-center justify-center gap-2 rounded-lg py-2.5 font-title-lg transition-all hover:opacity-90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed py-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
             >
               {form.formState.isSubmitting ? (
                 <LoadingSpinner text="Signing In..." />
               ) : (
-                "Sign In"
+                <>
+                  Sign In
+                  <IconArrowRight aria-hidden="true" size={18} stroke={1.8} />
+                </>
               )}
             </Button>
           </div>
@@ -120,20 +151,16 @@ export function LoginFormSection() {
 
         <AuthDivider />
 
-        <div className="mt-6 flex items-center gap-2">
-          <div className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-3">
-            <p className="mb-1 font-label-sm text-label-sm text-on-surface-variant">
-              Or sign in with
-            </p>
-            <div className="flex gap-3">
-              <Button variant="outline" type="button">
-                Google
-              </Button>
-              <Button variant="outline" type="button">
-                Apple
-              </Button>
-            </div>
-          </div>
+        <div className="mt-6 text-center">
+          <p className="font-body-sm text-body-sm text-on-surface-variant">
+            New to SanctuaryOS?{" "}
+            <Link
+              href="/auth/register"
+              className="font-bold text-secondary transition-all hover:underline"
+            >
+              Create an account
+            </Link>
+          </p>
         </div>
       </div>
     </div>
