@@ -1,22 +1,18 @@
-// @ts-check
-
-import js from "@eslint/js"
-import { tanstackConfig } from "@tanstack/eslint-config"
+import { defineConfig, globalIgnores } from "eslint/config"
+import nextVitals from "eslint-config-next/core-web-vitals"
+import nextTs from "eslint-config-next/typescript"
 import prettier from "eslint-config-prettier"
 import boundaries from "eslint-plugin-boundaries"
-import perfectionist from "eslint-plugin-perfectionist"
 import reactHooks from "eslint-plugin-react-hooks"
 import unusedImports from "eslint-plugin-unused-imports"
-import tseslint from "typescript-eslint"
 
-export default [
-  js.configs.recommended,
-
-  ...tseslint.configs.recommendedTypeChecked,
-
-  ...tanstackConfig,
+export default defineConfig([
+  ...nextVitals,
+  ...nextTs,
 
   {
+    files: ["**/*.{ts,tsx,mts,cts}"],
+
     languageOptions: {
       parserOptions: {
         project: true,
@@ -26,7 +22,6 @@ export default [
 
     plugins: {
       "unused-imports": unusedImports,
-      perfectionist,
       boundaries,
       "react-hooks": reactHooks,
     },
@@ -36,20 +31,17 @@ export default [
         version: "detect",
       },
       "boundaries/elements": [
-        { type: "app", pattern: "apps/web/**" },
+        { type: "app", pattern: "apps/nextjs/**" },
         { type: "shared", pattern: "packages/**" },
       ],
     },
 
     rules: {
-      /* -------------------- Console -------------------- */
       "no-console": ["error", { allow: ["warn", "error"] }],
 
-      /* -------------------- TypeScript -------------------- */
       "@typescript-eslint/no-unused-vars": "off",
       "unused-imports/no-unused-imports": "error",
 
-      /* -------------------- Imports -------------------- */
       "import/order": [
         "error",
         {
@@ -65,16 +57,6 @@ export default [
         },
       ],
 
-      /* -------------------- Sorting -------------------- */
-      "perfectionist/sort-imports": [
-        "error",
-        {
-          type: "natural",
-          order: "asc",
-        },
-      ],
-
-      /* -------------------- Restrict bad imports -------------------- */
       "no-restricted-imports": [
         "error",
         {
@@ -87,11 +69,9 @@ export default [
         },
       ],
 
-      /* -------------------- React Hooks -------------------- */
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
 
-      /* -------------------- Monorepo Boundaries -------------------- */
       "boundaries/element-types": [
         "error",
         {
@@ -111,6 +91,6 @@ export default [
     },
   },
 
-  /* -------------------- Prettier (must be last) -------------------- */
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
   prettier,
-]
+])
