@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm turbo build --filter=web",
+  "outputDirectory": "apps/front-end/.vercel/output",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": null
+}
