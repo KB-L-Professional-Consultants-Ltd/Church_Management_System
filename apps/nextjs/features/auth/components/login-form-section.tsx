@@ -67,14 +67,14 @@ export function LoginFormSection() {
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.email}
           >
             <FieldLabel
               htmlFor="email"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
             >
-              EMAIL ADDRESS
+              email address
             </FieldLabel>
             <div className="group relative">
               <IconMail
@@ -88,7 +88,7 @@ export function LoginFormSection() {
                 {...form.register("email")}
                 type="email"
                 placeholder="administrator@church.org"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.email}
               />
             </div>
@@ -96,15 +96,15 @@ export function LoginFormSection() {
           </Field>
 
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.password}
           >
             <div className="flex items-center justify-between px-1">
               <FieldLabel
                 htmlFor="password"
-                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
               >
-                PASSWORD
+                password
               </FieldLabel>
               <Link
                 href="/auth/forgot-password"
@@ -125,7 +125,7 @@ export function LoginFormSection() {
                 {...form.register("password")}
                 type="password"
                 placeholder="••••••••"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.password}
               />
             </div>
@@ -135,7 +135,7 @@ export function LoginFormSection() {
           <div className="pt-1">
             <Button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed py-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed px-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
             >
               {form.formState.isSubmitting ? (
                 <LoadingSpinner text="Signing In..." />

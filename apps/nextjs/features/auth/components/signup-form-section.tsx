@@ -53,8 +53,8 @@ export function SignupFormSection() {
   return (
     <div className="w-full">
       <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg shadow-on-primary-fixed/10">
-        <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md shadow-on-primary-fixed/15">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-on-primary-fixed shadow-md shadow-on-primary-fixed/15">
             <IconBuilding
               size={36}
               stroke={1.8}
@@ -64,23 +64,23 @@ export function SignupFormSection() {
           <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-primary-fixed">
             SanctuaryOS
           </h1>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
+          <p className="mt-1 font-body-sm text-on-surface-variant">
             Sacred Professionalism for Modern Communities
           </p>
         </div>
 
         {serverError && <ErrorAlert message={serverError} />}
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.fullName}
           >
             <FieldLabel
               htmlFor="fullName"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
             >
-              FULL NAME
+              full name
             </FieldLabel>
             <div className="group relative">
               <IconUser
@@ -93,7 +93,7 @@ export function SignupFormSection() {
                 id="fullName"
                 {...form.register("fullName")}
                 placeholder="John Doe"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.fullName}
               />
             </div>
@@ -101,14 +101,14 @@ export function SignupFormSection() {
           </Field>
 
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.churchName}
           >
             <FieldLabel
               htmlFor="churchName"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
             >
-              CHURCH NAME
+              church name
             </FieldLabel>
             <div className="group relative">
               <IconBuilding
@@ -121,7 +121,7 @@ export function SignupFormSection() {
                 id="churchName"
                 {...form.register("churchName")}
                 placeholder="Grace Community Church"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.churchName}
               />
             </div>
@@ -129,14 +129,14 @@ export function SignupFormSection() {
           </Field>
 
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.email}
           >
             <FieldLabel
               htmlFor="email"
-              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+              className="ml-1 block font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
             >
-              EMAIL ADDRESS
+              email address
             </FieldLabel>
             <div className="group relative">
               <IconMail
@@ -150,7 +150,7 @@ export function SignupFormSection() {
                 {...form.register("email")}
                 type="email"
                 placeholder="administrator@church.org"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-4 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.email}
               />
             </div>
@@ -158,15 +158,15 @@ export function SignupFormSection() {
           </Field>
 
           <Field
-            className="gap-1.5"
+            className="space-y-1"
             data-invalid={!!form.formState.errors.password}
           >
             <div className="flex items-center justify-between px-1">
               <FieldLabel
                 htmlFor="password"
-                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant uppercase"
+                className="font-label-md text-label-md tracking-[0.18em] text-on-surface-variant capitalize"
               >
-                PASSWORD
+                password
               </FieldLabel>
               <Link
                 href="/auth/forgot-password"
@@ -187,7 +187,7 @@ export function SignupFormSection() {
                 {...form.register("password")}
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="h-12 w-full rounded-lg border-outline-variant bg-surface-bright pr-12 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+                className="h-12 w-full rounded-lg border border-outline-variant bg-surface-bright pr-12 pl-11 font-body-md text-on-surface transition-all placeholder:text-on-surface-variant/60 focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
                 aria-invalid={!!form.formState.errors.password}
               />
               <button
@@ -206,15 +206,18 @@ export function SignupFormSection() {
             <FieldError errors={[form.formState.errors.password]} />
           </Field>
 
-          <div className="pt-2">
-            <Button type="submit" className="w-full">
+          <div className="pt-1">
+            <Button
+              type="submit"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed px-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
+            >
               {form.formState.isSubmitting ? (
                 <LoadingSpinner text="Creating Account..." />
               ) : (
-                <span className="flex items-center justify-center gap-2">
+                <>
                   Create Account
                   <IconArrowRight aria-hidden="true" size={18} stroke={1.8} />
-                </span>
+                </>
               )}
             </Button>
           </div>
