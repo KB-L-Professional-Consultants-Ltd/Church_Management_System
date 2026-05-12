@@ -1,206 +1,163 @@
 "use client"
 
-import type { FormEvent } from "react"
-import {
-  IconUser,
-  IconBuilding,
-  IconMail,
-  IconLock,
-  IconArrowRight,
-  IconShieldCheckFilled,
-  IconCloudCheck,
-} from "@tabler/icons-react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import Link from "next/link"
+import { Input } from "@workspace/ui/components/input"
+import { Button } from "@workspace/ui/components/button"
+import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field"
+import { IconBuilding, IconEye, IconEyeOff } from "@tabler/icons-react"
 
-import { AuthFooter, ErrorAlert, LoadingSpinner } from "./auth-layout"
+import { ErrorAlert, LoadingSpinner } from "./auth-layout"
 
-interface SignupFormSectionProps {
-  fullName: string
-  churchName: string
-  email: string
-  password: string
-  error: string | null
-  isLoading: boolean
-  onFullNameChange: (value: string) => void
-  onChurchNameChange: (value: string) => void
-  onEmailChange: (value: string) => void
-  onPasswordChange: (value: string) => void
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void
-}
+const formSchema = z.object({
+  fullName: z.string().min(1, "Please enter your name."),
+  churchName: z.string().min(1, "Please enter your church name."),
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(8, "Password must be at least 8 characters."),
+})
 
-export function SignupFormSection({
-  fullName,
-  churchName,
-  email,
-  password,
-  error,
-  isLoading,
-  onFullNameChange,
-  onChurchNameChange,
-  onEmailChange,
-  onPasswordChange,
-  onSubmit,
-}: SignupFormSectionProps) {
+type FormValues = z.infer<typeof formSchema>
+
+export function SignupFormSection() {
+  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const [serverError, setServerError] = useState<string | null>(null)
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { fullName: "", churchName: "", email: "", password: "" },
+  })
+
+  async function onSubmit(_data: FormValues) {
+    setServerError(null)
+    try {
+      // TODO: replace with real signup API call
+      router.push("/")
+    } catch {
+      setServerError("Unable to create the account right now.")
+    }
+  }
+
   return (
     <div className="w-full">
-      <div className="overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-[0_4px_20px_rgba(0,27,61,0.04)]">
-        <div className="mb-6 text-left">
-          <h2 className="mb-1 font-title-lg text-title-lg text-on-primary-fixed">
-            Create Account
+      <div className="overflow-hidden rounded-2xl border-t-4 border-secondary-container bg-white p-8 shadow-xl shadow-on-primary-fixed/5 lg:p-12">
+        {/* Header */}
+        <div className="mb-10 flex flex-col items-center gap-3 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-on-primary-fixed shadow-lg shadow-on-primary-fixed/10">
+            <IconBuilding size={28} className="text-surface-bright" />
+          </div>
+          <span className="text-xl font-bold tracking-tight text-on-primary-fixed">
+            GraceGuide CMS
+          </span>
+        </div>
+
+        <div className="mb-8 text-center">
+          <h2 className="mb-2 text-3xl font-bold text-on-surface">
+            Create an account
           </h2>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            Begin your journey towards organized ministry growth.
+          <p className="text-on-surface-variant">
+            Join over 2,500 churches scaling their impact.
           </p>
         </div>
 
-        {error && <ErrorAlert message={error} />}
+        {serverError && <ErrorAlert message={serverError} />}
 
-        <form onSubmit={onSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label
-              htmlFor="full_name"
-              className="font-label-md text-label-md text-on-surface-variant"
-            >
-              Full Name
-            </label>
-            <div className="relative">
-              <IconUser
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
-                size={20}
-              />
-              <input
-                id="full_name"
-                name="full_name"
-                type="text"
-                value={fullName}
-                onChange={(event) => onFullNameChange(event.target.value)}
-                placeholder="Enter your name"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-2 pr-4 pl-12 transition-all outline-none placeholder:text-outline-variant focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container"
-              />
-            </div>
-          </div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <Field
+            className="gap-1"
+            data-invalid={!!form.formState.errors.fullName}
+          >
+            <FieldLabel htmlFor="fullName">Full Name</FieldLabel>
+            <Input
+              id="fullName"
+              {...form.register("fullName")}
+              placeholder="John Doe"
+              className="mt-1"
+              aria-invalid={!!form.formState.errors.fullName}
+            />
+            <FieldError errors={[form.formState.errors.fullName]} />
+          </Field>
 
-          <div className="space-y-1">
-            <label
-              htmlFor="church_name"
-              className="font-label-md text-label-md text-on-surface-variant"
-            >
-              Church Name
-            </label>
-            <div className="relative">
-              <IconBuilding
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
-                size={20}
-              />
-              <input
-                id="church_name"
-                name="church_name"
-                type="text"
-                value={churchName}
-                onChange={(event) => onChurchNameChange(event.target.value)}
-                placeholder="Your congregation name"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-2 pr-4 pl-12 transition-all outline-none placeholder:text-outline-variant focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container"
-              />
-            </div>
-          </div>
+          <Field
+            className="gap-1"
+            data-invalid={!!form.formState.errors.churchName}
+          >
+            <FieldLabel htmlFor="churchName">Church Name</FieldLabel>
+            <Input
+              id="churchName"
+              {...form.register("churchName")}
+              placeholder="Grace Community Church"
+              className="mt-1"
+              aria-invalid={!!form.formState.errors.churchName}
+            />
+            <FieldError errors={[form.formState.errors.churchName]} />
+          </Field>
 
-          <div className="space-y-1">
-            <label
-              htmlFor="email"
-              className="font-label-md text-label-md text-on-surface-variant"
-            >
-              Email Address
-            </label>
-            <div className="relative">
-              <IconMail
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
-                size={20}
-              />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={(event) => onEmailChange(event.target.value)}
-                placeholder="email@church.org"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-2 pr-4 pl-12 transition-all outline-none placeholder:text-outline-variant focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container"
-              />
-            </div>
-          </div>
+          <Field className="gap-1" data-invalid={!!form.formState.errors.email}>
+            <FieldLabel htmlFor="email">Email Address</FieldLabel>
+            <Input
+              id="email"
+              {...form.register("email")}
+              placeholder="pastor@church.org"
+              className="mt-1"
+              aria-invalid={!!form.formState.errors.email}
+            />
+            <FieldError errors={[form.formState.errors.email]} />
+          </Field>
 
-          <div className="space-y-1">
-            <label
-              htmlFor="password"
-              className="font-label-md text-label-md text-on-surface-variant"
-            >
-              Password
-            </label>
+          <Field
+            className="gap-1"
+            data-invalid={!!form.formState.errors.password}
+          >
+            <FieldLabel htmlFor="password">Password</FieldLabel>
             <div className="relative">
-              <IconLock
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline"
-                size={20}
-              />
-              <input
+              <Input
                 id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(event) => onPasswordChange(event.target.value)}
-                placeholder="Min. 8 characters"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-2 pr-4 pl-12 transition-all outline-none placeholder:text-outline-variant focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container"
+                {...form.register("password")}
+                type={showPassword ? "text" : "password"}
+                placeholder="At least 8 characters"
+                className="mt-1"
+                aria-invalid={!!form.formState.errors.password}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-outline-variant transition-colors hover:text-outline"
+              >
+                {showPassword ? (
+                  <IconEyeOff size={20} />
+                ) : (
+                  <IconEye size={20} />
+                )}
+              </button>
             </div>
-          </div>
+            <FieldError errors={[form.formState.errors.password]} />
+          </Field>
 
-          <div className="pt-1">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="text-on-primary flex w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed py-2.5 font-title-lg transition-all hover:opacity-90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
-            >
-              {isLoading ? (
+          <div className="pt-2">
+            <Button type="submit" className="w-full">
+              {form.formState.isSubmitting ? (
                 <LoadingSpinner text="Creating Account..." />
               ) : (
-                <>
-                  Create Account
-                  <IconArrowRight size={20} />
-                </>
+                "Create Account"
               )}
-            </button>
+            </Button>
           </div>
         </form>
 
-        <div className="my-6 flex items-center gap-4">
-          <div className="h-px grow bg-outline-variant/30" />
-          <span className="font-label-sm text-label-sm tracking-widest text-outline uppercase">
-            Or
-          </span>
-          <div className="h-px grow bg-outline-variant/30" />
-        </div>
-
-        <AuthFooter
-          text="Already part of the community?"
-          linkText="Log in"
-          linkHref="/auth/login"
-        />
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="flex items-start gap-2 px-1 py-1">
-          <IconShieldCheckFilled
-            size={20}
-            className="mt-0.5 flex-shrink-0 text-secondary-container"
-          />
-          <p className="font-label-sm text-label-sm text-on-surface-variant">
-            Secure administrative access encryption.
-          </p>
-        </div>
-        <div className="flex items-start gap-2 px-1 py-1">
-          <IconCloudCheck
-            size={20}
-            className="mt-0.5 flex-shrink-0 text-secondary-container"
-          />
-          <p className="font-label-sm text-label-sm text-on-surface-variant">
-            Real-time database synchronization.
+        <div className="mt-8 text-center">
+          <p className="text-sm text-on-surface-variant">
+            Already have an account?{" "}
+            <Link
+              href="/auth/login"
+              className="font-bold text-secondary transition-all hover:underline"
+            >
+              Sign In
+            </Link>
           </p>
         </div>
       </div>

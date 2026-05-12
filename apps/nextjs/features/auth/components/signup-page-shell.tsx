@@ -1,5 +1,6 @@
-import { AuthMain, AuthPageLayout, SpiritualAccentBg } from "./auth-layout"
 import type { ReactNode } from "react"
+
+import { AuthMain, AuthPageLayout, SpiritualAccentBg } from "./auth-layout"
 
 interface SignupPageWrapperProps {
   children: ReactNode

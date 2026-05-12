@@ -1,3 +1,5 @@
+import type { ReactNode } from "react"
+
 import {
   AuthMain,
   AuthPageFooter,
@@ -7,7 +9,6 @@ import {
   PageFooter,
   SpiritualAccentBg,
 } from "./auth-layout"
-import type { ReactNode } from "react"
 
 interface LoginPageWrapperProps {
   children: ReactNode

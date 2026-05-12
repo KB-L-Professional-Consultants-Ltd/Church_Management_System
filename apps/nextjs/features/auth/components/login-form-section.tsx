@@ -1,40 +1,44 @@
 "use client"
 
-import type { FormEvent } from "react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 import Link from "next/link"
-import {
-  IconBuilding,
-  IconMail,
-  IconLock,
-  IconLogin,
-} from "@tabler/icons-react"
+import { Input } from "@workspace/ui/components/input"
+import { Button } from "@workspace/ui/components/button"
+import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field"
+import { IconBuilding } from "@tabler/icons-react"
 
-import {
-  AuthDivider,
-  AuthFooter,
-  ErrorAlert,
-  LoadingSpinner,
-} from "./auth-layout"
+import { AuthDivider, ErrorAlert, LoadingSpinner } from "./auth-layout"
 
-interface LoginFormSectionProps {
-  email: string
-  password: string
-  error: string | null
-  isLoading: boolean
-  onEmailChange: (value: string) => void
-  onPasswordChange: (value: string) => void
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void
-}
+const formSchema = z.object({
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(6, "Password must be at least 6 characters."),
+})
 
-export function LoginFormSection({
-  email,
-  password,
-  error,
-  isLoading,
-  onEmailChange,
-  onPasswordChange,
-  onSubmit,
-}: LoginFormSectionProps) {
+type FormValues = z.infer<typeof formSchema>
+
+export function LoginFormSection() {
+  const router = useRouter()
+  const [serverError, setServerError] = useState<string | null>(null)
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { email: "", password: "" },
+  })
+
+  async function onSubmit(_data: FormValues) {
+    setServerError(null)
+    try {
+      // TODO: replace with real auth call
+      router.push("/")
+    } catch {
+      setServerError("Unable to complete sign in right now.")
+    }
+  }
+
   return (
     <div className="w-full">
       <div className="overflow-hidden rounded-xl border-t-4 border-secondary-container bg-surface-container-lowest p-8 shadow-lg">
@@ -50,41 +54,38 @@ export function LoginFormSection({
           </p>
         </div>
 
-        {error && <ErrorAlert message={error} />}
+        {serverError && <ErrorAlert message={serverError} />}
 
-        <form onSubmit={onSubmit} className="space-y-6">
-          <div className="space-y-1">
-            <label
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <Field className="gap-1" data-invalid={!!form.formState.errors.email}>
+            <FieldLabel
               htmlFor="email"
               className="ml-1 block font-label-md text-label-md text-on-surface-variant"
             >
               EMAIL ADDRESS
-            </label>
-            <div className="group relative">
-              <IconMail
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
-                size={20}
-              />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={(event) => onEmailChange(event.target.value)}
-                placeholder="administrator@church.org"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-4 pr-4 pl-12 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
-              />
-            </div>
-          </div>
+            </FieldLabel>
+            <Input
+              id="email"
+              {...form.register("email")}
+              type="email"
+              placeholder="administrator@church.org"
+              className="w-full py-4 pr-4 pl-4 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+              aria-invalid={!!form.formState.errors.email}
+            />
+            <FieldError errors={[form.formState.errors.email]} />
+          </Field>
 
-          <div className="space-y-1">
+          <Field
+            className="gap-1"
+            data-invalid={!!form.formState.errors.password}
+          >
             <div className="flex items-center justify-between px-1">
-              <label
+              <FieldLabel
                 htmlFor="password"
                 className="font-label-md text-label-md text-on-surface-variant"
               >
                 PASSWORD
-              </label>
+              </FieldLabel>
               <Link
                 href="/auth/forgot-password"
                 className="font-label-sm text-label-sm text-secondary transition-colors hover:text-secondary-container"
@@ -92,46 +93,48 @@ export function LoginFormSection({
                 Forgot Password?
               </Link>
             </div>
-            <div className="group relative">
-              <IconLock
-                className="absolute top-1/2 left-4 -translate-y-1/2 text-outline transition-colors group-focus-within:text-on-primary-fixed"
-                size={20}
-              />
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(event) => onPasswordChange(event.target.value)}
-                placeholder="••••••••"
-                className="w-full rounded-lg border border-outline-variant bg-surface-bright py-4 pr-4 pl-12 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20 focus:outline-none"
-              />
-            </div>
-          </div>
+            <Input
+              id="password"
+              {...form.register("password")}
+              type="password"
+              placeholder="••••••••"
+              className="w-full py-4 pr-4 pl-4 font-body-md text-on-surface transition-all focus:border-on-primary-fixed focus:ring-2 focus:ring-secondary-container/20"
+              aria-invalid={!!form.formState.errors.password}
+            />
+            <FieldError errors={[form.formState.errors.password]} />
+          </Field>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-on-primary-fixed py-4 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
-          >
-            {isLoading ? (
-              <LoadingSpinner text="Signing In..." />
-            ) : (
-              <>
-                Sign In
-                <IconLogin size={20} />
-              </>
-            )}
-          </button>
+          <div className="pt-1">
+            <Button
+              type="submit"
+              className="text-on-primary flex w-full items-center justify-center gap-2 rounded-lg py-2.5 font-title-lg transition-all hover:opacity-90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
+            >
+              {form.formState.isSubmitting ? (
+                <LoadingSpinner text="Signing In..." />
+              ) : (
+                "Sign In"
+              )}
+            </Button>
+          </div>
         </form>
 
         <AuthDivider />
 
-        <AuthFooter
-          text="New to SanctuaryOS?"
-          linkText="Create an account"
-          linkHref="/auth/register"
-        />
+        <div className="mt-6 flex items-center gap-2">
+          <div className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-3">
+            <p className="mb-1 font-label-sm text-label-sm text-on-surface-variant">
+              Or sign in with
+            </p>
+            <div className="flex gap-3">
+              <Button variant="outline" type="button">
+                Google
+              </Button>
+              <Button variant="outline" type="button">
+                Apple
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
