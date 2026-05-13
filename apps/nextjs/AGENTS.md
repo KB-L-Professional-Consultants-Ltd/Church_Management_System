@@ -5,7 +5,7 @@
 - Follow DESIGN.md
 - When working on designs from stitch, use tabler icon library not the icons in the provided code
 - Use shadcn elements for all forms, and standardize on zod, react-hook-form, TanStack Query, and Jotai for form state and data flow
-- An example of one of the shacn forms;
+- An example of one of the shadcn forms;
 - Use shadcn elements
 
 ```Javascript
