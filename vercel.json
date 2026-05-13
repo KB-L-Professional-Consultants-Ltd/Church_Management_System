@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm turbo build --filter=web",
-  "outputDirectory": "apps/front-end/.vercel/output",
+  "buildCommand": "pnpm turbo build --filter=nextjs",
+  "outputDirectory": "apps/nextjs/.next",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": null
 }
