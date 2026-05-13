@@ -1,12 +1,6 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
 
 @theme inline {
   --font-heading: var(--font-sans);
@@ -48,9 +42,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --font-sans: "Inter Variable", sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
 
-  /* Sanctuary design-system utilities */
   --color-surface: #f8f9ff;
   --color-surface-dim: #cbdbf5;
   --color-surface-bright: #f8f9ff;
@@ -71,15 +64,15 @@
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
 
-  --font-body-sm: "Inter Variable", sans-serif;
-  --font-title-lg: "Inter Variable", sans-serif;
-  --font-body-md: "Inter Variable", sans-serif;
-  --font-label-md: "Inter Variable", sans-serif;
-  --font-headline-md: "Inter Variable", sans-serif;
-  --font-label-sm: "Inter Variable", sans-serif;
-  --font-headline-lg: "Inter Variable", sans-serif;
-  --font-display-lg: "Inter Variable", sans-serif;
-  --font-body-lg: "Inter Variable", sans-serif;
+  --font-body-sm: var(--font-inter), sans-serif;
+  --font-title-lg: var(--font-inter), sans-serif;
+  --font-body-md: var(--font-inter), sans-serif;
+  --font-label-md: var(--font-inter), sans-serif;
+  --font-headline-md: var(--font-inter), sans-serif;
+  --font-label-sm: var(--font-inter), sans-serif;
+  --font-headline-lg: var(--font-inter), sans-serif;
+  --font-display-lg: var(--font-inter), sans-serif;
+  --font-body-lg: var(--font-inter), sans-serif;
 
   --text-body-sm: 14px;
   --text-body-sm--line-height: 20px;
@@ -108,7 +101,7 @@
   --card-foreground: #0b1c30;
   --popover: #ffffff;
   --popover-foreground: #0b1c30;
-  --primary: #001b3d; /* Primary Midnight */
+  --primary: #001b3d;
   --primary-foreground: #ffffff;
   --secondary: #8c5000;
   --secondary-foreground: #ffffff;
@@ -174,16 +167,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
 }
 
-/* Ambient background accent used on auth pages */
 .bg-spiritual-accent {
   background-image:
     radial-gradient(

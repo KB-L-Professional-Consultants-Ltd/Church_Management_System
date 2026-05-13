@@ -11,8 +11,8 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "apps/front-end/**/*.{ts,tsx,js,jsx}": [
-      "pnpm exec eslint --max-warnings=0 --config apps/front-end/eslint.config.js",
+    "apps/nextjs/**/*.{ts,tsx,js,jsx}": [
+      "pnpm exec eslint --max-warnings=0 --config apps/nextjs/eslint.config.mjs",
       "prettier --write"
     ],
     "apps/api/**/*.{ts,js}": [
