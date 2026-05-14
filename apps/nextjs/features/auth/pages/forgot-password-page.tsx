@@ -1,10 +1,14 @@
-import Link from "next/link"
+import { IconBuilding } from "@tabler/icons-react"
 
 import {
   AuthMain,
   AuthPageLayout,
   SpiritualAccentBg,
+  AuthPageFooter,
+  PageFooter,
+  FooterLinks,
 } from "../components/auth-layout"
+import { ForgotPasswordFormSection } from "../components/forgot-password-form-section"
 
 export function ForgotPasswordPage() {
   return (
@@ -12,28 +16,40 @@ export function ForgotPasswordPage() {
       <AuthMain>
         <SpiritualAccentBg />
 
-        <div className="relative z-10 w-full max-w-xl rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-lg">
-          <p className="mb-3 font-label-sm text-label-sm tracking-[0.32em] text-secondary uppercase">
-            Good News Church CMS
-          </p>
-          <h1 className="font-headline-lg text-headline-lg font-bold text-on-primary-fixed">
-            Password recovery is not wired yet.
-          </h1>
-          <p className="mt-4 font-body-lg text-body-lg text-on-surface-variant">
-            The login screen can reach this route now, and you can drop in the
-            reset workflow here when it is ready.
-          </p>
+        <div className="relative z-10 w-full max-w-md">
+          {/* Brand Identity Anchor */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="mb-4 p-2 bg-primary-container rounded-xl shadow-lg">
+              <IconBuilding
+                size={32}
+                stroke={1.5}
+                className="text-surface-container-lowest"
+              />
+            </div>
+            <h1 className="font-headline-lg text-headline-lg text-on-primary-fixed tracking-tight">
+              SanctuaryOS
+            </h1>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-1">
+              Professional Excellence for Sacred Communities
+            </p>
+          </div>
 
-          <div className="mt-8">
-            <Link
-              href="/auth/login"
-              className="inline-flex h-12 items-center justify-center rounded-lg bg-on-primary-fixed px-6 font-title-lg text-title-lg text-surface-bright shadow-md transition-all hover:bg-primary-container"
-            >
-              Back to login
-            </Link>
+          {/* Forgot Password Form */}
+          <ForgotPasswordFormSection />
+
+          {/* Decorative Visual */}
+          <div className="mt-8 grid grid-cols-2 gap-4 opacity-40">
+            <div className="h-1 bg-secondary-container rounded-full" />
+            <div className="h-1 bg-outline-variant rounded-full" />
           </div>
         </div>
       </AuthMain>
+
+      {/* Footer */}
+      <AuthPageFooter>
+        <PageFooter />
+        <FooterLinks />
+      </AuthPageFooter>
     </AuthPageLayout>
   )
 }
