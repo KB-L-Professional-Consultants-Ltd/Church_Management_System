@@ -12,14 +12,14 @@
   },
   "lint-staged": {
     "apps/nextjs/**/*.{ts,tsx,js,jsx}": [
-      "pnpm exec eslint --max-warnings=0 --config apps/nextjs/eslint.config.mjs",
+      "pnpm --filter nextjs exec eslint --max-warnings=0",
       "prettier --write"
     ],
     "apps/api/**/*.{ts,js}": [
-      "pnpm exec eslint --max-warnings=0 --config apps/api/eslint.config.mjs"
+      "pnpm --filter api exec eslint --max-warnings=0"
     ],
     "packages/ui/**/*.{ts,tsx,js,jsx}": [
-      "pnpm exec eslint --max-warnings=0 --config packages/ui/eslint.config.ts",
+      "pnpm --filter ui exec eslint --max-warnings=0",
       "prettier --write"
     ],
     "**/*.{json,md}": [
