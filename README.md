@@ -2,6 +2,16 @@
 
 This is a TanStack Start monorepo template with shadcn/ui.
 
+## Run GitHub Actions locally
+
+Use [act](https://github.com/nektos/act) to run the CI workflow locally:
+
+```bash
+act -j checks
+```
+
+The checked-in [.actrc](.actrc) pins the `ubuntu-latest` runner image so the workflow uses a Docker image that matches the GitHub Actions environment more closely. This still works on Windows hosts because `act` runs the job inside Docker; just make sure Docker Desktop is available and using Linux containers.
+
 ## Adding components
 
 To add components to your app, run the following command at the root of your `web` app:
