@@ -36,10 +36,10 @@ export function ForgotPasswordFormSection() {
     try {
       // TODO: replace with real password reset API call
       setIsSubmitted(true)
-      // Optionally redirect after a delay
+      // Redirect to success page after a delay
       setTimeout(() => {
-        router.push("/auth/login")
-      }, 2000)
+        router.push("/auth/reset-link-sent")
+      }, 1500)
     } catch {
       setServerError("Unable to process your request. Please try again.")
     } finally {
@@ -59,15 +59,17 @@ export function ForgotPasswordFormSection() {
                 className="text-on-secondary-container"
               />
             </div>
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-2">
+            <h2 className="mb-2 font-headline-md text-headline-md text-on-surface">
               Check your email
             </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-              We&apos;ve sent a password reset link to your email address. Please check your inbox and follow the link to reset your password.
+            <p className="mb-6 font-body-md text-body-md text-on-surface-variant">
+              We&apos;ve sent a password reset link to your email address.
+              Please check your inbox and follow the link to reset your
+              password.
             </p>
             <Link
               href="/auth/login"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-on-primary-fixed px-6 py-3 font-label-md text-[16px] text-surface-container-lowest shadow-md transition-all hover:bg-on-primary-fixed-variant"
+              className="hover:bg-on-primary-fixed-variant inline-flex items-center justify-center gap-2 rounded-lg bg-on-primary-fixed px-6 py-3 font-label-md text-[16px] text-surface-container-lowest shadow-md transition-all"
             >
               <IconArrowBack size={18} stroke={2} />
               Back to Login
@@ -76,12 +78,12 @@ export function ForgotPasswordFormSection() {
         ) : (
           <>
             <div className="mb-6">
-              <h2 className="font-headline-md text-headline-md text-on-surface mb-2">
+              <h2 className="mb-2 font-headline-md text-headline-md text-on-surface">
                 Forgot Password?
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Enter the email address associated with your account and we&apos;ll
-                send you a secure link to reset your password.
+                Enter the email address associated with your account and
+                we&apos;ll send you a secure link to reset your password.
               </p>
             </div>
 
@@ -121,7 +123,7 @@ export function ForgotPasswordFormSection() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-12 bg-on-primary-fixed text-surface-container-lowest font-label-md text-[16px] rounded-lg shadow-md hover:bg-on-primary-fixed-variant transition-all transform active:scale-[0.98] flex items-center justify-center gap-2"
+                  className="hover:bg-on-primary-fixed-variant flex h-12 w-full transform items-center justify-center gap-2 rounded-lg bg-on-primary-fixed font-label-md text-[16px] text-surface-container-lowest shadow-md transition-all active:scale-[0.98]"
                 >
                   {isLoading ? (
                     <LoadingSpinner />
@@ -136,12 +138,12 @@ export function ForgotPasswordFormSection() {
                 <div className="flex items-center justify-center pt-2">
                   <Link
                     href="/auth/login"
-                    className="group inline-flex items-center gap-1 text-on-primary-fixed-variant font-label-md text-label-md hover:text-secondary-container transition-colors"
+                    className="group text-on-primary-fixed-variant inline-flex items-center gap-1 font-label-md text-label-md transition-colors hover:text-secondary-container"
                   >
                     <IconArrowBack
                       size={18}
                       stroke={2}
-                      className="group-hover:-translate-x-1 transition-transform"
+                      className="transition-transform group-hover:-translate-x-1"
                     />
                     <span>Back to Login</span>
                   </Link>
