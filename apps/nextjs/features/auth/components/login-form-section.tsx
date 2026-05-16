@@ -72,7 +72,7 @@ export function LoginFormSection() {
           >
             <FieldLabel
               htmlFor="email"
-              className="ml-1 block font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
+              className="ml-1 block font-label-md text-label-md font-semibold tracking-wider text-on-surface-variant capitalize"
             >
               email address
             </FieldLabel>
@@ -102,7 +102,7 @@ export function LoginFormSection() {
             <div className="flex items-center justify-between px-1">
               <FieldLabel
                 htmlFor="password"
-                className="font-label-md text-label-md font-semibold tracking-[0.05em] text-on-surface-variant capitalize"
+                className="font-label-md text-label-md font-semibold tracking-wider text-on-surface-variant capitalize"
               >
                 password
               </FieldLabel>

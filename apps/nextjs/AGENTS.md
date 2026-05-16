@@ -319,6 +319,28 @@ export function FieldDemo() {
 
 ```
 
+## Tailwind CSS Guidelines
+
+### Use Canonical Classes Only
+
+Always use Tailwind's canonical (standard) class names. **Avoid arbitrary class values** `[...]` except when absolutely necessary for custom values not available in the standard theme.
+
+**Common mistakes to avoid:**
+
+- ❌ `tracking-[0.05em]` → Use `tracking-wider` instead
+- ❌ `max-w-[480px]` → Use `max-w-md` or appropriate standard class
+- ❌ `text-[14px]` → Use `text-sm` or `text-body-md`
+- ❌ `gap-[12px]` → Use `gap-3` or `gap-sm`
+
+**Correct approach:**
+
+- ✅ Use predefined spacing scale: `gap-1`, `gap-2`, `gap-3`, `gap-4`, `gap-6`, `gap-8`
+- ✅ Use predefined typography: `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`
+- ✅ Use predefined letter spacing: `tracking-tighter`, `tracking-tight`, `tracking-normal`, `tracking-wide`, `tracking-wider`
+- ✅ Use predefined max-widths: `max-w-xs`, `max-w-sm`, `max-w-md`, `max-w-lg`, `max-w-xl`, `max-w-2xl`
+
+**Reference the theme configuration in the Tailwind config** to understand available classes before using arbitrary values.
+
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
 <!-- END:nextjs-agent-rules -->
